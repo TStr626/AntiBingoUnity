@@ -6,13 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     enum GameState{
+        INIT,
         ACTIVE,
         STOP,
         OUT
     }
+    public GameObject Canvas;
+    public GameObject cardPrefab;
     public GameObject Card;
     public GameObject Lot;
     public GameObject CurScore;
+    private Vector3 pos = new Vector3(0f,0f,0f);
     public int turn;
     public int num;
     public int score;
@@ -22,15 +26,27 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        turn = 0;
+        gameState = GameState.INIT;
+        
+        Canvas = GameObject.Find("Canvas");
+        pos.x=-170;
+        Card = Instantiate(cardPrefab, pos, Quaternion.identity);
+        Card.transform.SetParent(Canvas.transform,false);
+
         Lot = GameObject.Find("Lot");
-        Card = GameObject.Find("CardPrefab");
+        this.GetComponent<CardController>().cardInit();
+        
+        turn = 0;
         gameState = GameState.ACTIVE;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // wait for creating card
+        if(gameState==GameState.INIT){ 
+            return;
+        }
         isActive = this.GetComponent<CardController>().cardActiveCheck();
         isBingo = this.GetComponent<CardController>().cardBingoCheck();
         if(gameState == GameState.ACTIVE){

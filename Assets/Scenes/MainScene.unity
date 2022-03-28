@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 10810405}
   - component: {fileID: 10810404}
   - component: {fileID: 10810403}
+  - component: {fileID: 10810407}
   - component: {fileID: 10810406}
   - component: {fileID: 10810408}
-  - component: {fileID: 10810407}
   - component: {fileID: 10810409}
   m_Layer: 0
   m_Name: EventSystem
@@ -206,6 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 2401798943211571978, guid: ef84d108c1d518b43b7267b1a62e8a65, type: 3}
+  canvas: {fileID: 0}
+  card: {fileID: 0}
   cardScore: 0
 --- !u!114 &10810407
 MonoBehaviour:
@@ -219,7 +221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52a782850eff1e4ca66c9afda0c0df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Card: {fileID: 2401798943211571978, guid: ef84d108c1d518b43b7267b1a62e8a65, type: 3}
+  Canvas: {fileID: 0}
+  cardPrefab: {fileID: 2401798943211571978, guid: ef84d108c1d518b43b7267b1a62e8a65, type: 3}
+  Card: {fileID: 0}
   Lot: {fileID: 1712695030}
   CurScore: {fileID: 504175720}
   turn: 0

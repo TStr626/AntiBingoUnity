@@ -7,19 +7,20 @@ using UnityEngine.UI;
 public class CardController : MonoBehaviour
 {   
     public GameObject cardPrefab;
-    private GameObject canvas;
-    private GameObject card;
+    public GameObject canvas;
+    public GameObject card;
     private Vector3 pos = new Vector3(0f,0f,0f);
     private int cellCount = 25;
     private int[] cardLine;
     public int cardScore;
     void Start()
     {  
-        canvas = GameObject.Find("Canvas");
-        pos.x=-170;
-        card = new GameObject();
-        card = Instantiate(cardPrefab, pos, Quaternion.identity);
-        card.transform.SetParent(canvas.transform,false);
+        
+    }
+    // wait for creating card
+    public void cardInit(){
+        canvas = this.GetComponent<GameController>().Canvas;
+        card=this.GetComponent<GameController>().Card;
         cardLine = new int[5];
         cardScore = 0;
     }
@@ -31,6 +32,11 @@ public class CardController : MonoBehaviour
         cardBingoCheck();
     }
     public int cardScoreCheck(){
+        // if card is not created return 0;
+        if(card.transform.childCount<cellCount){
+            return 0;
+        }
+
         int openCount = 0;
         for(int i=0; i<cellCount; i++){
             CellState cellState;
@@ -59,6 +65,11 @@ public class CardController : MonoBehaviour
         }
     }
     public bool cardActiveCheck(){
+        // if card is not created return false;
+        if(card.transform.childCount<cellCount){
+            return false;
+        }
+        
         CellState cellState;
         for(int i=0; i<cellCount; i++){
             cellState = card.transform.GetChild(i).GetComponent<CellScript>().cellGetState();
@@ -69,6 +80,11 @@ public class CardController : MonoBehaviour
         return false;
     }
     public bool cardBingoCheck(){
+        // if card is not created return false;
+        if(card.transform.childCount<cellCount){
+            return false;
+        }
+        
         bool isBingo = false;
         // column
         for(int i=0; i<5; i++){
